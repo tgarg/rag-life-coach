@@ -1,5 +1,5 @@
-from langchain.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 # --- Configuration ---
 embedding_model_name = "all-MiniLM-L6-v2"
@@ -15,10 +15,10 @@ def get_relevant_chunks(query: str):
     """
     Given a user query, return a list of relevant journal chunks.
     """
-    docs = retriever.get_relevant_documents(query)
+    docs = retriever.invoke(query)
     return [doc.page_content for doc in docs]
 
-# Example use:
+# This is to test the retriever by running it as a script. This won't run when the module is imported.
 if __name__ == "__main__":
     query = input("Ask your journal memory something: ")
     results = get_relevant_chunks(query)
