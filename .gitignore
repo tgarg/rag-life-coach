@@ -1,9 +1,9 @@
-# Ignore virtual environment
-venv/
-
-# Python cache files
+# Ignore virtual environment and cache files
+.venv/
 __pycache__/
 *.pyc
+chroma_db/
+.cache/
 
 # VSCode settings (if applicable)
 .vscode/
