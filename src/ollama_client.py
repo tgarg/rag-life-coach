@@ -5,10 +5,17 @@ class OllamaClient:
         self.base_url = base_url
         self.model = model
 
-    def generate(self, prompt):
+    def generate(self, prompt: str) -> str:
+        """
+        Send a raw prompt to the Ollama model and return the response.
+        """
         response = requests.post(
             f"{self.base_url}/api/generate",
-            json={"model": self.model, "prompt": prompt, "stream": False}
+            json={
+                "model": self.model,
+                "prompt": prompt,
+                "stream": False
+            }
         )
         response.raise_for_status()
         return response.json()["response"]
