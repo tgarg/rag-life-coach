@@ -20,8 +20,11 @@ for file_path in all_files:
 print(f"Loaded {len(docs)} journal documents.")
 
 # --- Step 2: Split documents into 500-character chunks with 50-character overlap ---
-splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-chunks = splitter.split_documents(docs)
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1500,  # Increased from 500
+    chunk_overlap=150,  # Increased from 50
+    separators=["\n\n", "\n", ". ", " ", ""]  # Prioritize paragraph breaks
+)
 print(f"Split into {len(chunks)} chunks.")
 
 # --- Step 3: Embed using HuggingFace sentence transformer ---
