@@ -10,3 +10,6 @@ chroma_db/
 
 # Journal files
 journals/
+
+# User profile
+user_profile.json
