@@ -1,8 +1,14 @@
 import os
+import time
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
+
+
+# --- Step 0: Print a message to the console ---
+start_time = time.time()
+print("Starting text ingestion...")
 
 # --- Step 1: Load all .txt or .md files from the journals/ directory ---
 journal_dir = "journals"
@@ -25,6 +31,7 @@ splitter = RecursiveCharacterTextSplitter(
     chunk_overlap=150,  # Increased from 50
     separators=["\n\n", "\n", ". ", " ", ""]  # Prioritize paragraph breaks
 )
+chunks = splitter.split_documents(docs)
 print(f"Split into {len(chunks)} chunks.")
 
 # --- Step 3: Embed using HuggingFace sentence transformer ---
@@ -39,3 +46,8 @@ db = Chroma.from_documents(documents=chunks, embedding=embeddings, persist_direc
 db.persist()
 
 print(f"✅ Successfully created and stored embeddings in {chroma_db_path}/")
+
+# Print total execution time
+total_time = time.time() - start_time
+print(f"\nTotal execution time: {total_time:.2f} seconds")
+print("Text ingestion complete.")

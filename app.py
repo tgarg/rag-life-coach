@@ -1,7 +1,10 @@
+import os
+os.environ['STREAMLIT_SERVER_FILE_WATCHER_TYPE'] = 'none'
 import streamlit as st
 from src.ollama_client import OllamaClient
 from src.chat_interface import ChatInterface
 from src.retriever import get_relevant_chunks
+from langchain_huggingface import HuggingFaceEmbeddings
 
 
 # Initialize session state. If the LLM isn't running, it will be started here. If there isn't a chat interface object, it will be created here.
